@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import ProductList from './ProductList';
+import Cart from './Cart';
 
-function App() {
+const App = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = product => {
+    setCartItems([...cartItems, product]);
+  };
+
+  const removeFromCart = product => {
+    setCartItems(cartItems.filter(item => item.id !== product.id));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ProductList addToCart={addToCart} />
+      <Cart cartItems={cartItems} removeFromCart={removeFromCart} />
     </div>
   );
-}
+};
 
 export default App;
